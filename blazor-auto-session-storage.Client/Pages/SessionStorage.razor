@@ -1,0 +1,62 @@
+﻿@page "/session-storage"
+@using blazor_auto_session_storage.Client.Interfaces
+@rendermode InteractiveAuto
+
+<PageTitle>Session Storage</PageTitle>
+
+<div class="mb-3">
+    <p class="fw-normal"><strong>Guid gerado:</strong> @currentGuid</p>
+</div>
+<div class="d-grid gap-2 col-3">
+    <button class="btn btn-primary" @onclick="GenerateGuid">Gerar Guid</button>
+</div>
+
+<hr />
+
+<div class="d-grid gap-2 col-3">
+    <button class="btn btn-success" @onclick="SetKeySessionStorageAsync">Salvar Guid</button>
+</div>
+
+<hr />
+
+<div class="mb-3">
+    <p class="fw-normal"><strong>Guid obtido:</strong> @sessionGuid</p>
+</div>
+<div class="d-grid gap-2 col-3">
+    <button class="btn btn-info" @onclick="GetKeySessionStorageAsync">Obter Guid</button>
+</div>
+
+<hr />
+
+<div class="d-grid gap-2 col-3">
+    <button class="btn btn-warning" @onclick="RemoveKeySessionStorageAsync">Remover Chave</button>
+</div>
+
+<hr />
+
+<div class="d-grid gap-2 col-5">
+    <button class="btn btn-danger" @onclick="ClearSessionStorageAsync">Limpar Session Storage</button>
+</div>
+
+@code {
+    [Inject]
+    public ISessionStorageService SessionStorageService { get; set; } = null!;
+
+    private Guid currentGuid = Guid.NewGuid();
+    private string sessionGuid = string.Empty;
+
+    private void GenerateGuid() =>
+        currentGuid = Guid.NewGuid();
+
+    private async Task SetKeySessionStorageAsync() =>
+        await SessionStorageService.SetItemAsync("Guid", currentGuid);
+
+    private async Task GetKeySessionStorageAsync() =>
+        sessionGuid = await SessionStorageService.GetItemAsync<string>("Guid");
+
+    private async Task RemoveKeySessionStorageAsync() =>
+        await SessionStorageService.RemoveItemAsync("Guid");
+
+    private async Task ClearSessionStorageAsync() =>
+        await SessionStorageService.ClearAsync();
+}

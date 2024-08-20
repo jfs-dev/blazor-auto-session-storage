@@ -23,7 +23,7 @@ https://learn.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-9.0
 
 https://learn.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-9.0&pivots=server
 
-https://developer.mozilla.org/pt-BR/docs/Web/API/Window/sessionStorage/
+https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage/
 
 ## Licença
 GPL-3.0 license
